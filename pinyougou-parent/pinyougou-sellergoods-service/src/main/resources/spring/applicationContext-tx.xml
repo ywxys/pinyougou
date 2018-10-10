@@ -16,6 +16,5 @@
     </bean>  
       
     <!-- 开启事务控制的注解支持 -->  
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-   
+   <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

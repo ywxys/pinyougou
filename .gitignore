@@ -1,3 +1,7 @@
-*.project
+rebel.xml
+.project
 .settings
-*.classpath
+.classpath
+target
+.idea
+*.iml

@@ -20,6 +20,8 @@ public class TbSeller implements Serializable {
 
     private String status;
 
+    private String statusString;
+
     private String addressDetail;
 
     private String linkmanName;
@@ -51,6 +53,8 @@ public class TbSeller implements Serializable {
     private String bankUser;
 
     private String bankName;
+
+    private String bankAccount;
 
     public String getSellerId() {
         return sellerId;
@@ -114,6 +118,25 @@ public class TbSeller implements Serializable {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getStatusString() {
+        if (statusString == null) {
+            if ("0".equals(status)) {
+                statusString = "未审核";
+            } else if ("1".equals(status)) {
+                statusString = "已审核";
+            } else if ("2".equals(status)) {
+                statusString = "未通过";
+            } else if ("3".equals(status)) {
+                statusString = "已关闭";
+            }
+        }
+        return statusString;
+    }
+
+    public void setStatusString(String statusString) {
+        this.statusString = statusString;
     }
 
     public String getAddressDetail() {
@@ -242,5 +265,13 @@ public class TbSeller implements Serializable {
 
     public void setBankName(String bankName) {
         this.bankName = bankName == null ? null : bankName.trim();
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount == null ? null : bankAccount.trim();
     }
 }

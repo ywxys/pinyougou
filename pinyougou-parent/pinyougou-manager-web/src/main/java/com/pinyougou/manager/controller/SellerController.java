@@ -1,15 +1,16 @@
 package com.pinyougou.manager.controller;
-import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.TbSeller;
 import com.pinyougou.sellergoods.service.SellerService;
-
 import entity.PageResult;
 import entity.Result;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -101,7 +102,7 @@ public class SellerController {
 	
 		/**
 	 * 查询+分页
-	 * @param brand
+	 * @param seller
 	 * @param page
 	 * @param rows
 	 * @return
@@ -110,5 +111,23 @@ public class SellerController {
 	public PageResult search(@RequestBody TbSeller seller, int page, int rows  ){
 		return sellerService.findPage(seller, page, rows);		
 	}
-	
+
+	/**
+	 * 修改
+	 * @param sellerId
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping("/updateStatus")
+	public Result updateStatus(String sellerId,String status){
+		try {
+			sellerService.updateStatus(sellerId,status);
+			return new Result(true, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "修改失败");
+		}
+	}
+
+
 }

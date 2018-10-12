@@ -43,14 +43,17 @@ app.controller("brandController",function($scope,$controller,brandService){
 	
 	//删除
 	$scope.dele=function(){
-		brandService.dele($scope.selectIds).success(function(response){
-			if(response.success){
-				$scope.reloadList();
-			}else{
-				alert(response.message);
-			}
-		});
-	}
+		if(confirm("确认删除这"+$scope.selectIds.length+"项吗?")){
+            brandService.dele($scope.selectIds).success(function(response){
+                if(response.success){
+                    $scope.reloadList();
+                }else{
+                    alert(response.message);
+                }
+            });
+		}
+
+	};
 	
 	$scope.searchEntity={};
 	//条件查询

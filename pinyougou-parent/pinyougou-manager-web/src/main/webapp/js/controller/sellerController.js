@@ -50,6 +50,23 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 			}		
 		);				
 	}
+    //审核
+    $scope.update=function(status){
+        if (status != null && status.length > 0) {
+        	//将status封装进对象
+            $scope.entity.status = status;
+        }
+        sellerService.update().success(
+            function(response){
+                if(response.success){
+                    //重新查询
+                    $scope.reloadList();//重新加载
+                }else{
+                    alert(response.message);
+                }
+            }
+        );
+    }
 	
 	 
 	//批量删除 
@@ -71,10 +88,19 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 	$scope.search=function(page,rows){			
 		sellerService.search(page,rows,$scope.searchEntity).success(
 			function(response){
-				$scope.list=response.rows;	
+				$scope.list=response.rows;
 				$scope.paginationConf.totalItems=response.total;//更新总记录数
 			}			
 		);
 	}
-    
+
+	$scope.updateStatus=function (sellerId, status) {
+		sellerService.updateStatus(sellerId,status).success(function (response) {
+            if (response.success) {
+                $scope.reloadList();
+            } else {
+                alert(response.message);
+            }
+        });
+    }
 });	

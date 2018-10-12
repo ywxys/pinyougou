@@ -1764,6 +1764,76 @@ public class TbSellerExample {
             addCriterion("bank_name not between", value1, value2, "bankName");
             return (Criteria) this;
         }
+
+        public Criteria andBankAccountIsNull() {
+            addCriterion("bank_account is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountIsNotNull() {
+            addCriterion("bank_account is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountEqualTo(String value) {
+            addCriterion("bank_account =", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountNotEqualTo(String value) {
+            addCriterion("bank_account <>", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountGreaterThan(String value) {
+            addCriterion("bank_account >", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountGreaterThanOrEqualTo(String value) {
+            addCriterion("bank_account >=", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountLessThan(String value) {
+            addCriterion("bank_account <", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountLessThanOrEqualTo(String value) {
+            addCriterion("bank_account <=", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountLike(String value) {
+            addCriterion("bank_account like", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountNotLike(String value) {
+            addCriterion("bank_account not like", value, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountIn(List<String> values) {
+            addCriterion("bank_account in", values, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountNotIn(List<String> values) {
+            addCriterion("bank_account not in", values, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountBetween(String value1, String value2) {
+            addCriterion("bank_account between", value1, value2, "bankAccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankAccountNotBetween(String value1, String value2) {
+            addCriterion("bank_account not between", value1, value2, "bankAccount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -18,7 +18,7 @@ app.service('sellerService',function($http){
 		return  $http.post('../seller/add.do',entity );
 	}
 	//修改 
-	this.update=function(entity){
+	this.update=function(entity,status){
 		return  $http.post('../seller/update.do',entity );
 	}
 	//删除
@@ -28,5 +28,8 @@ app.service('sellerService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../seller/search.do?page='+page+"&rows="+rows, searchEntity);
-	}    	
+	}
+	this.updateStatus=function (sellerId, status) {
+        return $http.get('../seller/updateStatus.do?sellerId=' + sellerId + "&status=" + status);
+    }
 });

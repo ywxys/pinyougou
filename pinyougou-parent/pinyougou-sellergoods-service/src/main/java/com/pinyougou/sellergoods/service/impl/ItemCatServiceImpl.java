@@ -72,7 +72,18 @@ public class ItemCatServiceImpl implements ItemCatService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Long[] ids) {
+	public void delete(Long[] ids) throws Exception{
+	    //判断是否有下级目录
+		for(Long id:ids){
+            TbItemCatExample example = new TbItemCatExample();
+            Criteria criteria = example.createCriteria();
+            criteria.andParentIdEqualTo(id);
+            List<TbItemCat> list = itemCatMapper.selectByExample(example);
+            if (list.size() > 0) {
+                throw new Exception("id为" + id + "的分类有下级分类");
+            }
+        }
+        //删除分类
 		for(Long id:ids){
 			itemCatMapper.deleteByPrimaryKey(id);
 		}		
@@ -96,5 +107,13 @@ public class ItemCatServiceImpl implements ItemCatService {
 		Page<TbItemCat> page= (Page<TbItemCat>)itemCatMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-	
+
+	@Override
+	public List<TbItemCat> findByParentId(Long parentId) {
+		TbItemCatExample example = new TbItemCatExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andParentIdEqualTo(parentId);
+		return itemCatMapper.selectByExample(example);
+	}
+
 }

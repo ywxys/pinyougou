@@ -33,7 +33,7 @@
 	<!-- 认证管理器 -->
 	<authentication-manager>
 		<authentication-provider user-service-ref="userDetailsService">
-			<password-encoder ref="passwordEncoder"></password-encoder>
+			<password-encoder ref="passwordEncoder"/>
 		</authentication-provider>
 	</authentication-manager>
 
@@ -41,14 +41,14 @@
 	<beans:bean id="userDetailsService"
 		class="com.pinyougou.service.UserDetailsServiceImpl">
 		<beans:property name="sellerService"
-			ref="sellerService"></beans:property>
+						ref="sellerService"/>
 	</beans:bean>
 
 	<!-- 引用dubbo 服务,从dubbo获取sellerService -->
 	<dubbo:application name="pinyougou-shop-web" />
 	<dubbo:registry address="zookeeper://192.168.25.129:2181" />
-	<dubbo:reference id="sellerService" interface="com.pinyougou.sellergoods.service.SellerService"></dubbo:reference>
+	<dubbo:reference id="sellerService" interface="com.pinyougou.sellergoods.service.SellerService"/>
 
 	<!-- 配置密码加密类 -->
-	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 </beans:beans>

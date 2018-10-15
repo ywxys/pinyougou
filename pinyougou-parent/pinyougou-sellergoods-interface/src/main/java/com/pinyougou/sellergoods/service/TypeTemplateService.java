@@ -2,6 +2,7 @@ package com.pinyougou.sellergoods.service;
 import java.util.List;
 import java.util.Map;
 
+import com.pinyougou.pojo.TbSpecification;
 import com.pinyougou.pojo.TbTypeTemplate;
 
 import entity.PageResult;
@@ -65,4 +66,11 @@ public interface TypeTemplateService {
 	 * @return
 	 */
     List<Map> selectOptionList();
+    
+    /**
+     * 根据id查询规格列表
+     * @param id
+     * @return
+     */
+    List<Map> findSpecList(Long id);
 }

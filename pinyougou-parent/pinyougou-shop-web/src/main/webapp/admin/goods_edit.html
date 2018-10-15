@@ -26,13 +26,16 @@
     <script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/service/goodsService.js"></script>
     <script type="text/javascript" src="../js/service/uploadService.js"></script>
+    <script type="text/javascript" src="../js/service/itemCatService.js"></script>
+    <script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
     <script type="text/javascript" src="../js/controller/goodsController.js"></script>
 
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController">
+<body class="hold-transition skin-red sidebar-mini" 
+	ng-app="pinyougou" ng-controller="goodsController" ng-init="selectItemCatList_1()">
 
 <!-- 正文区域 -->
 <section class="content">
@@ -71,17 +74,23 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <select class="form-control">
+                                        <select class="form-control" 
+                                        	ng-options="item.id as item.name for item in itemCatList1"
+                                        	ng-model="entity.goods.category1Id">
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control select-sm"></select>
+                                        <select class="form-control select-sm"
+                                        ng-options="item.id as item.name for item in itemCatList2"
+                                        ng-model="entity.goods.category2Id"></select>
                                     </td>
                                     <td>
-                                        <select class="form-control select-sm"></select>
+                                        <select class="form-control select-sm"
+                                        ng-options="item.id as item.name for item in itemCatList3"
+                                        ng-model="entity.goods.category3Id"></select>
                                     </td>
                                     <td>
-                                        模板ID:19
+                                        模板ID:{{entity.goods.typeTemplateId}}
                                     </td>
                                 </tr>
                             </table>
@@ -97,7 +106,9 @@
 
                         <div class="col-md-2 title">品牌</div>
                         <div class="col-md-10 data">
-                            <select class="form-control"></select>
+                            <select class="form-control"
+                            	ng-options="item.id as item.text for item in template.brandIds"
+                            	ng-model="entity.goods.brandId"></select>
                         </div>
 
                         <div class="col-md-2 title">副标题</div>
@@ -177,17 +188,11 @@
 
                 <!--扩展属性-->
                 <div class="tab-pane" id="customAttribute">
-                    <div class="row data-type">
+                    <div class="row data-type" ng-repeat="pojo in entity.goodsDesc.customAttributeItems">
                         <div>
-                            <div class="col-md-2 title">扩展属性1</div>
+                            <div class="col-md-2 title">{{pojo.text}}</div>
                             <div class="col-md-10 data">
-                                <input class="form-control" placeholder="扩展属性1">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="col-md-2 title">扩展属性2</div>
-                            <div class="col-md-10 data">
-                                <input class="form-control" placeholder="扩展属性2">
+                                <input class="form-control" placeholder="{{pojo.text}}" ng-model="pojo.value">
                             </div>
                         </div>
                     </div>

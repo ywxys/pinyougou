@@ -19,6 +19,7 @@ import com.pinyougou.pojo.TbGoodsExample.Criteria;
 import com.pinyougou.sellergoods.service.GoodsService;
 
 import entity.PageResult;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 服务实现层
@@ -26,6 +27,7 @@ import entity.PageResult;
  * @author Administrator
  */
 @Service
+@Transactional
 public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
@@ -180,7 +182,9 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void delete(Long[] ids) {
 		for (Long id : ids) {
-			goodsMapper.deleteByPrimaryKey(id);
+			TbGoods goods = goodsMapper.selectByPrimaryKey(id);
+			goods.setIsDelete("1");
+			goodsMapper.updateByPrimaryKey(goods);
 		}
 	}
 
@@ -190,7 +194,8 @@ public class GoodsServiceImpl implements GoodsService {
 
 		TbGoodsExample example = new TbGoodsExample();
 		Criteria criteria = example.createCriteria();
-
+		//判断没有逻辑删除
+		criteria.andIsDeleteIsNull();
 		if (goods != null) {
 			if (goods.getSellerId() != null && goods.getSellerId().length() > 0) {
 //                criteria.andSellerIdLike("%" + goods.getSellerId() + "%");
@@ -222,6 +227,15 @@ public class GoodsServiceImpl implements GoodsService {
 
 		Page<TbGoods> page = (Page<TbGoods>) goodsMapper.selectByExample(example);
 		return new PageResult(page.getTotal(), page.getResult());
+	}
+
+	@Override
+	public void updateStatus(Long[] ids, String auditStatus) {
+		for (Long id : ids) {
+			TbGoods goods = goodsMapper.selectByPrimaryKey(id);
+			goods.setAuditStatus(auditStatus);
+			goodsMapper.updateByPrimaryKey(goods);
+		}
 	}
 
 }

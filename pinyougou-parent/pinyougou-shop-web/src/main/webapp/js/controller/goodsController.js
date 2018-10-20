@@ -118,6 +118,9 @@ app
             };
             // 将当前上传的图片存入图片列表
             $scope.add_image_entity = function () {
+            	if($scope.entity.goodsDesc.itemImages==null) {
+                	$scope.entity.goodsDesc.itemImages=[];
+                }
                 $scope.entity.goodsDesc.itemImages
                     .push($scope.image_entity);
             }

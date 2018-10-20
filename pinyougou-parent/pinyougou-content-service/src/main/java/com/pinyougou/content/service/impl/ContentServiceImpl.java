@@ -105,5 +105,16 @@ public class ContentServiceImpl implements ContentService {
 		Page<TbContent> page= (Page<TbContent>)contentMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbContent> findByCategoryId(Long categoryId) {
+			
+			TbContentExample example = new TbContentExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andCategoryIdEqualTo(categoryId);//根据categoryId查询
+			criteria.andStatusEqualTo("1");//启用
+			example.setOrderByClause("sort_order");//排序
+			return contentMapper.selectByExample(example );
+		}
 	
 }

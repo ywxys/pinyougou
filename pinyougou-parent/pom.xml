@@ -24,7 +24,7 @@
 		<activemq.version>5.11.2</activemq.version>
 		<security.version>3.2.3.RELEASE</security.version>		
 		<solrj.version>4.10.3</solrj.version>
-		<ik.version>2012_u6</ik.version>		
+		<ik.version>2012_u6</ik.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -269,11 +269,6 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-			</plugin>
 		</plugins>
 	
 	</build>
@@ -285,5 +280,7 @@
 		<module>pinyougou-sellergoods-service</module>
 		<module>pinyougou-manager-web</module>
 		<module>pinyougou-shop-web</module>
+		<module>pinyougou-content-interface</module>
+		<module>pinyougou-content-service</module>
 	</modules>
 </project>

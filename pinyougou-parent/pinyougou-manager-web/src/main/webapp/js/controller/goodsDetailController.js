@@ -132,7 +132,7 @@ app
                 itemCatService.findByParentId('0').success(
                     function (response) {
                         $scope.itemCatList1 = response;
-                        $scope.entity.goods.typeTemplateId = '';
+                        // $scope.entity.goods.typeTemplateId = '';
                     })
             }
 
@@ -299,4 +299,27 @@ app
                 }
                 return false;
             }
+
+
+            $scope.selectItemCatList_1 = function () {
+                itemCatService.findOne('0').success(function (response) {
+                    $scope.itemCatList1 = response;
+                })
+            };
+            $scope.$watch('$scope.entity.goods.category1Id',function () {
+                itemCatService.findOne($scope.entity.goods.category1Id).success(function (response) {
+                    $scope.itemCatList2 = response;
+                })
+            })
+            $scope.$watch('$scope.entity.goods.category2Id',function () {
+                itemCatService.findOne($scope.entity.goods.category2Id).success(function (response) {
+                    $scope.itemCatList3 = response;
+                })
+            })
+            $scope.$watch('$scope.entity.goods.category3Id',function () {
+                typeTemplateService.findOne($scope.entity.goods.category3Id).success(function (response) {
+                    $scope.template = response;
+                    $template.brandIds = JSON.parse($template.brandIds);
+                })
+            })
         });

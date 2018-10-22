@@ -14,25 +14,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Service
+@Service(timeout = 5000)
 public class ItemSearchServiceImpl implements ItemSearchService {
 
-    @Autowired
-    private SolrTemplate solrTemplate;
+	@Autowired
+	private SolrTemplate solrTemplate;
 
-    @Override
-    public Map search(Map searchMap) {
+	@Override
+	public Map search(Map searchMap) {
 
-        Query query = new SimpleQuery("*:*");
-        Criteria criteria = new Criteria();
-        Set<String> set = searchMap.keySet();
-        for (String key : set) {
-            criteria = criteria.and("item_"+key).is(searchMap.get(key));
-        }
-        query.addCriteria(criteria);
-        ScoredPage<TbItem> page = solrTemplate.queryForPage(query, TbItem.class);
-        Map result = new HashMap();
-        result.put("rows", page.getContent());
-        return result;
-    }
+		Query query = new SimpleQuery("*:*");
+		
+		if (searchMap.size() > 0) {
+			Criteria criteria = new Criteria("item_keywords").is(searchMap.get("keywords"));
+			query.addCriteria(criteria);
+		}
+
+		ScoredPage<TbItem> page = solrTemplate.queryForPage(query, TbItem.class);
+		Map result = new HashMap();
+		result.put("rows", page.getContent());
+		return result;
+	}
 }

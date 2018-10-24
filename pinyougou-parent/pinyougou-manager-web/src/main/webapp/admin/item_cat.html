@@ -121,9 +121,7 @@
 		      	<tr>
 		      		<td>类型模板</td>
 		      		<td>	      		
-		      			<select select2 ng-model="entity.typeId" placeholder="商品类型模板" class="form-control" type="text">
-							<option ng-repeat="typeMap in typeTemplateList" value="{{typeMap.id}}">{{typeMap.text}}</option>
-						</select>
+		      			<select ng-model="entity.typeId" ng-options="type.id as type.text for type in typeTemplateList" placeholder="商品类型模板" class="form-control" ></select>
 		      		</td>		      		      		
 		      	</tr>		      	
 			 </table>				

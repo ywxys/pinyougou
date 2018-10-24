@@ -5,6 +5,7 @@ import com.pinyougou.pojo.TbItem;
 import com.pinyougou.search.service.ItemSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.*;
@@ -21,6 +22,11 @@ public class ItemSearchServiceImpl implements ItemSearchService {
     @Override
     public Map search(Map searchMap) {
         Map result = new HashMap();
+                
+        //将关键词里的空格缩进
+        String keywords = (String) searchMap.get("keywords");
+        searchMap.put("keywords", keywords.replace(" ", ""));
+        
         //查询列表
         result.putAll(searchList(searchMap));
 
@@ -45,9 +51,6 @@ public class ItemSearchServiceImpl implements ItemSearchService {
     private Map searchList(Map searchMap) {
         Map map = new HashMap();
         HighlightQuery query = new SimpleHighlightQuery();
-        //配置基本分页
-        query.setOffset(0);
-        query.setRows(10);
         //设置高亮区域
         HighlightOptions highlightOptions = new HighlightOptions().addField("item_title");
         highlightOptions.setSimplePrefix("<em style='color:red'>");//前缀
@@ -55,7 +58,13 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         query.setHighlightOptions(highlightOptions);
 
         //按照关键字查询
-        Criteria criteria = new Criteria("item_keywords").is(searchMap.get("keywords"));
+        String keywords = (String) searchMap.get("keywords");
+        Criteria criteria=new Criteria("item_keywords") ;
+        if("".equals(keywords)) {//没有关键词查所有
+        	criteria=criteria.isNotNull();
+        }else {//有关键词按关键词查询
+        	criteria=criteria.is(searchMap.get("keywords"));
+		}
         query.addCriteria(criteria);
         //按分类筛选
         if (!"".equals(searchMap.get("category"))) {
@@ -90,6 +99,37 @@ public class ItemSearchServiceImpl implements ItemSearchService {
                 query.addFilterQuery(new SimpleFilterQuery(filterCriteria));
             }
         }
+        //分页查询
+        //页码
+        Integer pageNo = (Integer) searchMap.get("pageNo");
+        if(pageNo == null) {
+            //没传入页码
+        	pageNo = 1;
+        }
+        //每页数量
+        Integer pageSize = (Integer)searchMap.get("pageSize");
+        if(pageSize==null) {
+            pageSize = 20;//默认20条
+        }
+        //设置分页信息
+        query.setOffset((pageNo-1)*pageSize);//开始索引
+        query.setRows(pageSize);
+        //排序
+        String sortValue = (String) searchMap.get("sort");//升序还是降序ASC/DESC
+        String sortField = (String) searchMap.get("sortField");//需要排序的字段
+        if(!"".equals(sortValue) && !"".equals(sortField)) {
+            //排序字段和方式都不为空
+        	if(sortValue.equals("ASC")) {
+            	//升序
+        		Sort sort = new Sort(Sort.Direction.ASC,"item_"+sortField);
+        		query.addSort(sort);
+        	}
+        	if(sortValue.equals("DESC")){
+        		//降序
+        		Sort sort = new Sort(Sort.Direction.DESC,"item_"+sortField);
+        		query.addSort(sort);
+			}
+        }
 
         //高亮查询显示结果
         HighlightPage<TbItem> page = solrTemplate.queryForHighlightPage(query, TbItem.class);
@@ -100,6 +140,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
             }
         }
         map.put("rows", page.getContent());
+        map.put("totalPages", page.getTotalPages());//总页数
+        map.put("totalCount", page.getTotalElements());//总记录数
 
 
         return map;
@@ -113,8 +155,14 @@ public class ItemSearchServiceImpl implements ItemSearchService {
     private List searchCategoryList(Map searchMap){
         List<String> list = new ArrayList<>();
         Query query = new SimpleQuery();
-        //按照关键词查询
-        Criteria criteria = new Criteria("item_keywords").is(searchMap.get("keywords"));
+        //初始查询条件
+        String keywords = (String) searchMap.get("keywords");
+        Criteria criteria=new Criteria("item_keywords") ;
+        if("".equals(keywords)) {//没有关键词查所有
+        	criteria=criteria.isNotNull();
+        }else {//有关键词按关键词查询
+        	criteria=criteria.is(searchMap.get("keywords"));
+		}
         query.addCriteria(criteria);
 
         //设置分组选项

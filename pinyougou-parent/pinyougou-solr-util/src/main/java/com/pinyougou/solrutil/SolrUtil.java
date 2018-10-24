@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.solr.core.SolrTemplate;
+import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class SolrUtil {
     private SolrTemplate solrTemplate;
 
     public void importItemData() {
+    	solrTemplate.delete(new SimpleQuery("*:*"));
         TbItemExample example = new TbItemExample();
         TbItemExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo("1");//审核通过

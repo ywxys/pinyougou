@@ -48,6 +48,21 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         return result;
     }
 
+    @Override
+    public void importList(List list) {
+        solrTemplate.saveBeans(list);
+        solrTemplate.commit();
+    }
+
+    @Override
+    public void deleteByGoodsIds(Long[] goodsIds) {
+        Query query = new SimpleQuery("*:*");
+        Criteria criteria = new Criteria("item_goodsid").in(Arrays.asList(goodsIds));
+        query.addCriteria(criteria);
+        solrTemplate.delete(query);
+        solrTemplate.commit();
+    }
+
     private Map searchList(Map searchMap) {
         Map map = new HashMap();
         HighlightQuery query = new SimpleHighlightQuery();

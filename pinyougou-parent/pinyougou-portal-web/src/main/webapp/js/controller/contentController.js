@@ -6,4 +6,7 @@ app.controller('contentController',function($scope,contentService){
 			$scope.contentList[categoryId]=response;
 		});
 	}
+	$scope.search=function () {
+        location.href = "http://192.168.24.58:9104/search.html#?keywords="+$scope.keywords;
+    }
 })

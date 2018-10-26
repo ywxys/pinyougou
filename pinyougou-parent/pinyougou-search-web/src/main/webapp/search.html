@@ -19,7 +19,7 @@
 </head>
 
 <body ng-app="pinyougou" ng-controller="searchController"
-	ng-init="search()">
+	ng-init="loadkeywords()">
 	<!-- 头部栏位 -->
 	<!--页面顶部-->
 	<div id="nav-bottom">
@@ -179,7 +179,7 @@
 					<div class="fl ext"></div>
 				</div>
 				<div class="type-wrap logo"
-					ng-if="resultMap.brandList!=null && searchMap.brand==''">
+					ng-if="resultMap.brandList!=null && searchMap.brand=='' && !keywordsIsBrand">
 					<div class="fl key brand">品牌</div>
 					<div class="value logos">
 						<ul class="logo-list">
@@ -246,7 +246,7 @@
 						<ul class="sui-nav">
 							<li class="{{searchMap.sortField==''?'active':''}}"><a href="#" ng-click="sortSearch('','')">综合</a></li>
 							<li><a href="#">销量</a></li>
-							<li><a href="#">新品</a></li>
+							<li class="{{searchMap.sortField=='updatetime'?'active':''}}"><a href="#" ng-click="sortSearch('updatetime','DESC')">新品</a></li>
 							<li><a href="#">评价</a></li>
 							<li class="{{searchMap.sortField=='price'&&searchMap.sort=='ASC'?'active':''}}"><a href="#" ng-click="sortSearch('price','ASC')">价格↑</a></li>
 							<li class="{{searchMap.sortField=='price'&&searchMap.sort=='DESC'?'active':''}}"><a href="#" ng-click="sortSearch('price','DESC')">价格↓</a></li>
@@ -287,7 +287,9 @@
 				<div class="fr page">
 					<div class="sui-pagination pagination-large">
 						<ul>
-							<li class="prev {{searchMap.pageNo==1?'disabled':''}}"><a href="#" ng-click="queryByPage(searchMap.pageNo-1)">«上一页</a></li>
+							<li class="prev {{searchMap.pageNo==1?'disabled':''}}">
+								<a href="#" ng-click="queryByPage(searchMap.pageNo-1)">«</a>
+							</li>
 							<li class="dotted" ng-if="firstDot"><span>...</span></li>
 							<li class="{{p==searchMap.pageNo?'active':''}}"
 								ng-repeat="p in pageLabel">
@@ -295,7 +297,7 @@
 							</li>
 							<li class="dotted" ng-if="lastDot"><span>...</span></li>
 							<li class="next {{searchMap.pageNo==resultMap.totalPages?'disabled':''}}">
-								<a href="#" ng-click="queryByPage(searchMap.pageNo+1)">下一页»</a>
+								<a href="#" ng-click="queryByPage(searchMap.pageNo+1)">»</a>
 							</li>
 						</ul>
 						<div>

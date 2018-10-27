@@ -243,7 +243,7 @@ public class GoodsServiceImpl implements GoodsService {
 	public List<TbItem> findItemListByGoodsIdAndStatus(Long[] goodsId, String status) {
 		TbItemExample example = new TbItemExample();
 		TbItemExample.Criteria criteria = example.createCriteria();
-		criteria.andStatusEqualTo(status);//已审核
+		criteria.andStatusEqualTo(status);//开启
 		criteria.andGoodsIdIn(Arrays.asList(goodsId));//指定goodsId
 		return itemMapper.selectByExample(example);
 	}

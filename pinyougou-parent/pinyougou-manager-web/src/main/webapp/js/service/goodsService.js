@@ -32,6 +32,6 @@ app.service('goodsService',function($http){
 
 	//更新商品状态
 	this.updateStatus=function (ids,status) {
-        return $http.get('../goods/updateStatus.do?ids=' + ids + "auditStatus=" + status);
+        return $http.get('../goods/updateStatus.do?ids=' + ids + "&auditStatus=" + status);
     }
 });

@@ -51,6 +51,7 @@ public class SolrUtil {
         for (TbItem item : itemList) {
             System.out.println(item.getId()+" "+item.getTitle());
             Map specMap = JSON.parseObject(item.getSpec(), Map.class);//提取json字符串转为map
+            //附加动态域属性
             item.setSpecMap(specMap);
         }
         System.out.println("------------结束----------");

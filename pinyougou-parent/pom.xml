@@ -290,5 +290,7 @@
         <module>pinyougou-page-interface</module>
 		<module>pinyougou-page-service</module>
 		<module>pinyougou-page-web</module>
+		<module>pinyougou-user-interface</module>
+		<module>pinyougou-user-service</module>
 	</modules>
 </project>

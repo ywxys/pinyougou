@@ -135,7 +135,6 @@ app
                 itemCatService.findByParentId('0').success(
                     function (response) {
                         $scope.itemCatList1 = response;
-                        $scope.entity.goods.typeTemplateId = '';
                     })
             }
 
@@ -150,7 +149,9 @@ app
                                 .success(
                                     function (response) {
                                         $scope.itemCatList2 = response;
-                                        $scope.entity.goods.typeTemplateId = '';
+                                        if(oldValue) {
+                                            $scope.entity.goods.typeTemplateId='';
+                                        }
                                     })
                         }
                     });
@@ -162,6 +163,9 @@ app
                     itemCatService.findByParentId(newValue).success(
                         function (response) {
                             $scope.itemCatList3 = response;
+                            if(oldValue) {
+                                $scope.entity.goods.typeTemplateId='';
+                            }
                         })
                 }
             });

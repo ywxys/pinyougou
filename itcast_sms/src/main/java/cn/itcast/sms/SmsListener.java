@@ -16,6 +16,7 @@ public class SmsListener {
 	
 	@JmsListener(destination="sms")
 	public void sendSms(Map<String, String> map) {
+		System.out.println(map);
 		try {
 			SendSmsResponse response = smsUtil.sendSms(
 									map.get("mobile"), 

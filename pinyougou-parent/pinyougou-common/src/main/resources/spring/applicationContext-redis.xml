@@ -12,7 +12,8 @@
             http://www.springframework.org/schema/mvc/spring-mvc.xsd 
             http://www.springframework.org/schema/cache  
             http://www.springframework.org/schema/cache/spring-cache.xsd">  
-  
+
+    <!-- 扫描配置文件 -->
    <context:property-placeholder location="classpath*:properties/*.properties" />   
   
    <!-- redis 相关配置 --> 

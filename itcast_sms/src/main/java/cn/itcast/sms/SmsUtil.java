@@ -34,7 +34,7 @@ public class SmsUtil {
 		String accessKeySecret = env.getProperty("accessKeySecret");
 		// 可自助调整超时时间
 		System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-		System.setProperty("sun.net.client.defaultReadTimeout", "60000");
+		System.setProperty("sun.net.client.defaultReadTimeout", "300000");
 		// 初始化acsClient,暂不支持region化
 		IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
 		DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
@@ -68,7 +68,7 @@ public class SmsUtil {
 		String accessKeySecret = env.getProperty("accessKeySecret");
 		// 可自助调整超时时间
 		System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-		System.setProperty("sun.net.client.defaultReadTimeout", "300000");
+		System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 		// 初始化acsClient,暂不支持region化
 		IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
 		DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);

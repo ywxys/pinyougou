@@ -45,5 +45,4 @@ http://activemq.apache.org/schema/core ">
 		<constructor-arg value="pinyougou_topic_page_delete"/>
 	</bean>
 
-
 </beans>

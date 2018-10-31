@@ -6,3 +6,4 @@ target
 .idea
 *.iml
 .tern-project
+/test/

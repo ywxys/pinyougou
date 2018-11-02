@@ -1,8 +1,12 @@
 package com.pinyougou.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pinyougou.user.service.UserService;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

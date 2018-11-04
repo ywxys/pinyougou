@@ -13,6 +13,9 @@ app.controller('searchController', function ($scope, $location, searchService) {
 
     $scope.loadkeywords = function () {
         $scope.searchMap.keywords = $location.search()['keywords'];
+        if (!$scope.searchMap.keywords) {
+            $scope.searchMap.keywords = '';
+        }
         $scope.search();
     };
 

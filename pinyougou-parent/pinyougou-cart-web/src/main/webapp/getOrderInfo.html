@@ -183,7 +183,7 @@
                             <div class="sendGoods" ng-repeat="cart in cartList">
                                 <ul class="yui3-g" ng-repeat="orderItem in cart.orderItemList">
                                     <li class="yui3-u-1-6">
-                                        <span><img src="{{orderItem.picPath}}"/></span>
+                                        <span><img width="100px" height="100px" ng-src="{{orderItem.picPath}}"/></span>
                                     </li>
                                     <li class="yui3-u-7-12">
                                         <div class="desc">{{orderItem.title}}</div>

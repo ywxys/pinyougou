@@ -7,9 +7,9 @@ app.controller('payController',function($scope,$location,payService){
 			// 二维码
 			var qr=new QRious({
 				element: document.getElementById('qrious'),
-				size=250,
-				level='H',
-				value=response.code_url
+				size:250,
+				level:'H',
+				value:response.code_url
 			})
 			$scope.queryPayStatus($scope.out_trade_no);
 		})

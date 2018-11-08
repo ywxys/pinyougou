@@ -1,5 +1,6 @@
 package com.pinyougou.page.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.pinyougou.mapper.TbGoodsDescMapper;
 import com.pinyougou.mapper.TbGoodsMapper;
 import com.pinyougou.mapper.TbItemCatMapper;
@@ -15,7 +16,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 
 import java.io.*;
@@ -105,4 +105,30 @@ public class ItemPageServiceImpl implements ItemPageService {
             return false;
         }
     }
+
+	@Override
+	public Map getItemMap(Long goodsId) {
+		 Map dataModel = new HashMap();
+         TbGoods goods = goodsMapper.selectByPrimaryKey(goodsId);
+         dataModel.put("goods", goods);
+         //商品详细信息
+         TbGoodsDesc goodsDesc=goodsDescMapper.selectByPrimaryKey(goodsId);
+         dataModel.put("goodsDesc", goodsDesc);
+         //商品分类信息
+         String itemCat1 = itemCatMapper.selectByPrimaryKey(goods.getCategory1Id()).getName();
+         dataModel.put("itemCat1", itemCat1);
+         String itemCat2 = itemCatMapper.selectByPrimaryKey(goods.getCategory2Id()).getName();
+         dataModel.put("itemCat2", itemCat2);
+         String itemCat3 = itemCatMapper.selectByPrimaryKey(goods.getCategory3Id()).getName();
+         dataModel.put("itemCat3", itemCat3);
+         //sku列表
+         TbItemExample example = new TbItemExample();
+         Criteria criteria = example.createCriteria();
+         criteria.andGoodsIdEqualTo(goodsId);//指定goodsId
+         criteria.andStatusEqualTo("1");//状态为有效
+         example.setOrderByClause("is_default desc");//按是否默认降序
+         List<TbItem> itemList = itemMapper.selectByExample(example);
+         dataModel.put("itemList", itemList);
+		return dataModel; 
+	}
 }

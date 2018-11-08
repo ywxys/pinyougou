@@ -1,5 +1,7 @@
 package com.pinyougou.page.service;
 
+import java.util.Map;
+
 public interface ItemPageService {
     /**
      * 生成商品详情页
@@ -13,4 +15,11 @@ public interface ItemPageService {
      * @return
      */
     public boolean deleteItemHtml(Long[] goodsIds);
+    
+    /**
+     * 
+     * @param goodsId
+     * @return
+     */
+    public Map getItemMap(Long goodsId);
 }

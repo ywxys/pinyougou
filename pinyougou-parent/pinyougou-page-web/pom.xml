@@ -78,7 +78,15 @@
             <artifactId>servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+        	<groupId>com.pinyougou</groupId>
+        	<artifactId>pinyougou-page-interface</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.freemarker</groupId>
+        	<artifactId>freemarker</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -301,5 +301,6 @@
 		<module>pinyougou-pay-interface</module>
 		<module>pinyougou-pay-service</module>
         <module>pinyougou-seckill-interface</module>
+        <module>pinyougou-task-service</module>
     </modules>
 </project>
